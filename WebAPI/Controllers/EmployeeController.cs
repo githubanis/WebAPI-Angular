@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.Models;
@@ -16,10 +18,12 @@ namespace WebAPI.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IConfiguration _configaration;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public EmployeeController(IConfiguration configuration)
+        public EmployeeController(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             _configaration = configuration;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
@@ -157,12 +161,22 @@ namespace WebAPI.Controllers
         {
             try
             {
+                var httpRequest = Request.Form;
+                var postedFile = httpRequest.Files[0];
+                string fileName = postedFile.FileName;
+                var physicalPath = _webHostEnvironment.ContentRootPath + "/Photos/" + fileName;
 
+                using(var stream = new FileStream(physicalPath, FileMode.Create))
+                {
+                    postedFile.CopyTo(stream);
+                }
+
+                return new JsonResult(fileName);
             }
             catch (Exception)
             {
 
-                throw;
+                return new JsonResult("anonymous.png");
             }
         }
     }

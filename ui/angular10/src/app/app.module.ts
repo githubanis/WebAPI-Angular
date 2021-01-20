@@ -11,7 +11,11 @@ import { AddEditEmpComponent } from './employee/add-edit-emp/add-edit-emp.compon
 import { SharedService } from './shared.service';
 
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -21,13 +25,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AddEditDepComponent,
     EmployeeComponent,
     ShowEmpComponent,
-    AddEditEmpComponent
+    AddEditEmpComponent,
+    NavMenuComponent,
+    HomeComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    RouterModule.forRoot([
+      { path: '', component:HomeComponent},
+      { path: 'department', component: DepartmentComponent },
+      { path: 'employee', component: EmployeeComponent }
+    ]),
+    NgbModule
+
   ],
   providers: [SharedService],
   bootstrap: [AppComponent]

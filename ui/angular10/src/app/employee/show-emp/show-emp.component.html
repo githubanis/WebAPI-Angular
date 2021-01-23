@@ -1,1 +1,25 @@
-<p>show-emp works!</p>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Employee ID</th>
+      <th>Employee Name</th>
+      <th>Department</th>
+      <th>Date Of Joining</th>
+      <th>Photo File Name</th>
+      <th>Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let employee of EmployeeList">
+      <td>{{employee.EmployeeId}}</td>
+      <td>{{employee.EmployeeName}}</td>
+      <td>{{employee.Department}}</td>
+      <td>{{employee.DateOfJoining}}</td>
+      <td>{{employee.PhotoFileName}}</td>
+      <td>
+        <button class="btn btn-light mr-1" type="button">Edit</button>
+        <button class="btn btn-danger mr-1" type="button">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

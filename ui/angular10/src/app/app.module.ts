@@ -14,7 +14,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
@@ -30,15 +29,14 @@ import { HomeComponent } from './home/home.component';
     HomeComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
+    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component:HomeComponent},
+      { path: '', component: HomeComponent },
       { path: 'department', component: DepartmentComponent },
       { path: 'employee', component: EmployeeComponent }
-    ]),
-    NgbModule
+    ])
 
   ],
   providers: [SharedService],
